@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load cart_filter %}
+{% block title %}
+Order page
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+
+<table class="table table-dark table-striped table-hover text-center">
+
+        <tr class="table table-dark table-striped table-hover">
+            <th class="table-dark">
+                S.No.
+            </th>
+
+            <th class="table-dark">
+                Product Name
+            </th>
+
+            <th class="table-dark">
+                Product Image
+            </th>
+
+            <th class="table-dark">
+                Product per price
+            </th>
+
+            <th class="table-dark">
+                Quantity
+            </th>
+
+            <th class="table-dark">
+                Total Price 
+            </th>
+
+            <th class="table-dark">
+                Status
+            </th>
+
+            <td>
+            <th class="table-dark">
+               
+            </th>
+            </td> 
+        </tr>
+    {% for i in fetch_order %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.product.product_name}}</td>
+        <td><img src="{{i.product.product_image.url}}" alt="" width=100 height=100></td>
+        <td> ₹{{i.price}}</td>
+        <td> {{i.quantity}}</td>
+        <td> ₹{{i.price|total_amount:i.quantity}}</td>
+
+        {% if i.status %}
+             <td> <span class="badge text-bg-success">Confirmed</span>
+        {% else %}
+             <td> <span class="badge text-bg-warning">Pending</span>
+        {% endif %}
+        <td colspan=5 > </td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan=5>Total Payable Amount:</td>
+        <td > 
+            <strong>
+            ₹{{tp}}
+            </strong>
+        </td>   
+        <th>
+    
+             <td colspan=4>
+            <a class="btn btn-dark mx-1" type="button" href= 'buynow'>Buy now</a>
+
+        </td>
+        </th>
+    </tr>
+    </table>
+    </div>
+{% endblock content %}
+
